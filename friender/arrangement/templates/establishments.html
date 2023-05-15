@@ -3,11 +3,25 @@
 {% block title %} establishments {% endblock %}
 
 {% block content %}
-
-<h1>establishments:</h1>
+    <table class="table table-striped table-bordered">
+  <thead>
+    <tr>
+      <th scope="col">name</th>
+      <th scope="col">category</th>
+      <th scope="col">address</th>
+      <th scope="col">phone</th>
+    </tr>
+  </thead>
+  <tbody>
     {% for establishment in establishments %}
-         <h2>{{ establishment }}</h2>
+        <tr>
+            <td>{{ establishment.name }}</td>
+            <td>{{ establishment.get_category_display}}</td>
+            <td>{{ establishment.address }}</td>
+            <td>{{ establishment.phone }}</td>
+        </tr>
     {% endfor %}
-
+  </tbody>
+</table>
 
 {% endblock %}

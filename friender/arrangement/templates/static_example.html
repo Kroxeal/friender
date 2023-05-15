@@ -1,0 +1,15 @@
+{% extends 'base.html'%}
+
+{% block title %} static {% endblock %}
+
+{% block content %}
+{% load static %}
+<link href="{% static 'css/static_example.css' %}" rel="stylesheet">
+<h1>some static example</h1>
+<img width="100px" src="{% static 'img/shop.jpg' %}" alt="My image">
+
+<div id="clock">
+<script src="{% static 'js/example.js' %}"></script>
+</div>
+
+{% endblock %}
