@@ -65,6 +65,27 @@ def user_rating(request):
     return render(request, "userrating.html", context=context)
 
 
+def establishments_rating_form(request, **kwargs):
+    establishment_id = int(kwargs['id'])
+    print(establishment_id)
+    context = {}
+    if request.method == 'POST':
+        form = EstablishmentsRatingForm(request.POST, request.FILES)
+        context['form'] = form
+        if form.is_valid():
+            EstablishmentsRating.objects.create(
+                establishment_id=establishment_id,
+                rating=request.POST['rating'],
+                description=request.POST['description']
+            )
+            return redirect('establishments')
+    else:
+        form = EstablishmentsRatingForm
+        context['form'] = form
+
+    return render(request, "establishments_rating_form.html", context=context)
+
+
 def user_form_rating(request, **kwargs):
     user_id = int(kwargs['id'])
     context = {}
@@ -103,8 +124,12 @@ def create_user(request):
     return render(request, "create_user_form.html", context=context)
 
 
+
+
+
+
 @transaction.atomic
-def make_arrangements(request):
+def create_arrangement(request):
     context = {}
     if request.method == "POST":
         form = ArrangementForm(request.POST)
@@ -112,8 +137,9 @@ def make_arrangements(request):
         guest = Guest.objects.all().order_by('?')[0]
         if form.is_valid():
 
-            host_id = int(request.POST['host'][0])
-            place_id = int(request.POST['place'][0])
+            host_id = int(request.POST['host'])
+            place_id = int(request.POST['place'])
+            print(host_id, place_id)
 
             host = Host.objects.get(users_ptr_id=host_id)
             establishments = Establishments.objects.get(id=place_id)
@@ -126,22 +152,26 @@ def make_arrangements(request):
                     guest=Guest.objects.get(users_ptr_id=guest.id),
                     establishments=establishments
                 )
+            else:
+                return HttpResponse("Пользователь уже занят")
 
             return redirect("friends")
     else:
         form = ArrangementForm()
         context["form"] = form
-    return render(request, "make_arrangement.html", context=context)
+    return render(request, "create_arrangement.html", context=context)
+
 
 
 class PlaceListView(ListView):
     template_name = 'establishments.html'
+    paginate_by = 5
     model = Establishments
     context_object_name = "establishments"
-    queryset = Establishments.objects.all()[:4]
+    queryset = Establishments.objects.all()
 
 
-class EstablishmentsCreateView(LoginRequiredMixin,CreateView):
+class EstablishmentsCreateView(LoginRequiredMixin, CreateView):
     template_name = 'createplace.html'
     login_url = "/admin/login/"
     model = Establishments

@@ -8,3 +8,9 @@ Markdown==3.4.3
 django-filter==23.2
 Pillow==9.5.0
 crispy-bootstrap5==0.7
+celery==5.2.7
+django-celery-results==2.5.1
+redis==4.5.5
+flower==1.2.0
+django-redis==5.2.0
+django-celery-beat==2.5.0

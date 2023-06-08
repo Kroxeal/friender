@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'friender_api.apps.FrienderApiConfig',
     'rest_framework.authtoken'
+    # 'django_celery_beat', сначало надо чекнуть видос от 18,05,2023, а потом применять
 
 
 ]

@@ -64,7 +64,6 @@ class Host(Users):
     max_spend_value = models.PositiveIntegerField(null=True)
     status = models.CharField(choices=STATUS, max_length=1, default='a')
 
-
     def __str__(self):
         return f"{self.name} ({self.max_spend_value})"
     class Meta:
@@ -84,7 +83,7 @@ class Guest(Users):
 
 class Passport(models.Model):
     passport_id = models.CharField(max_length=10, unique=True)
-    date_create = models.DateTimeField(auto_created=datetime.now())
+    date_create = models.DateTimeField(auto_now_add=datetime.now())
     user = models.OneToOneField('Users', on_delete=models.CASCADE)
 
     def __str__(self):
@@ -104,7 +103,6 @@ class Arrangements(models.Model):
     host = models.ForeignKey('Host', on_delete=models.CASCADE, null=True)
     guest = models.ForeignKey('Guest', on_delete=models.CASCADE, null=True)
     establishments = models.ForeignKey('Establishments', on_delete=models.CASCADE)
-
 
 
 class Establishments(models.Model):
@@ -138,6 +136,7 @@ class UserRating(Rating):
 
     def __str__(self):
         return str(self.rating)
+
 
 # @receiver(post_save, sender=Users)
 def user_created(sender, instance, **kwargs):

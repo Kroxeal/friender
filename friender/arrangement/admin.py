@@ -3,24 +3,31 @@ from .models import *
 from django.utils.html import format_html
 from django.db.models import F
 from django.utils.safestring import mark_safe
+
+
 class UserRatingInline(admin.StackedInline):
     model = UserRating
     extra = 2
 
+
 class UsersInline(admin.TabularInline):
     model = Hobbies.user.through
+
 
 class HobbiesInline(admin.TabularInline):
     model = Hobbies.user.through
     extra = 0
 
+
 @admin.action(description="Change city")
 def change_city(modeladmin, request, queryset):
     queryset.update(city="Baranovichi")
 
+
 @admin.action(description="year later")
 def year_later(modeladmin, request, queryset):
     queryset.update(age=F("age")+1)
+
 
 # @admin.display
 # def choices_sex(obj):
@@ -97,7 +104,7 @@ def get_html_photo(objects):
 class UserRatingAdmin(admin.ModelAdmin):
 
 
-    # get_html_photo.short_descriptions = 'фото'
+    get_html_photo.short_descriptions = 'фото'
 
     list_display = ["rating", "user", get_html_photo]
     list_display_links = ['rating', 'user']

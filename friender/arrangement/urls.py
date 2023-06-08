@@ -9,9 +9,12 @@ urlpatterns = [
     path('static_url/', static_url, name="static_url"),
     path('user_rating/', user_rating, name="user_rating"),
     re_path(r"^user_rating/(?P<id>[\d-]+)$", user_form_rating, name="user_form_rating"),
+    re_path(r"^establishments_rating_form/(?P<id>[\d-]+)$", establishments_rating_form, name="establishments_rating_form"),
     path('create_user/', create_user, name="create_user"),
-    path('make_arrangements/', make_arrangements, name="make_arrangements"),
+    # path('make_arrangements/', make_arrangements, name="make_arrangements"),
     path('create_place/', EstablishmentsCreateView.as_view()),
+    path('create_arrangement/', create_arrangement, name='create_arrangement'),
+    # path('create_arrangement/', create_arrangement, name='create_arrangement'),
 
     # path('class_view/',MyTemplateView.as_view())
 ]
