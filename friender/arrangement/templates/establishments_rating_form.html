@@ -1,0 +1,26 @@
+{% extends 'base.html'%}
+
+{% block title %} main {% endblock %}
+
+{% block content %}
+
+{% load crispy_forms_tags %}
+
+
+<form method="POST" enctype="multipart/form-data">
+    {{form|crispy}}
+    {% csrf_token %}
+    <button type="submit" class="btn btn-primary">Отправить</button>
+</form>
+
+{##}
+{#<div class="mb-3">#}
+{#  <label for="exampleFormControlInput1" class="form-label">Адрес электронной почты</label>#}
+{#  <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">#}
+{#</div>#}
+{#<div class="mb-3">#}
+{#  <label for="exampleFormControlTextarea1" class="form-label">Пример текстового поля</label>#}
+{#  <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>#}
+{#</div>#}
+
+{% endblock %}
